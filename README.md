@@ -1,5 +1,33 @@
 # terraform-google-firebase-project-factory
 
+# What Is This Module
+1. Enable required APIs
+    - By adding it to `api_services`, it is added to the process that is enabled by default and is enabled in the same way.
+    - ↓ Add Default APIs 
+      - cloudbilling.googleapis.com
+      - cloudresourcemanager.googleapis.com
+      - identitytoolkit.googleapis.com
+      - firebase.googleapis.com
+      - appengine.googleapis.com
+      - firebasestorage.googleapis.com
+      - firestore.googleapis.com
+      - cloudfunctions.googleapis.com
+      - cloudbuild.googleapis.com
+      - artifactregistry.googleapis.com
+      - eventarc.googleapis.com
+      - cloudscheduler.googleapis.com
+      - run.googleapis.com
+2. Create the Storage Bucket that is created by default.
+    - In the past, if you didn't do this, even if you created another bucket, you couldn't see it when you tried to check storage in the Firebase Console.
+3. Add a web app and create a Hosting site.
+    - If you pass an empty array to `hosting_names`, hosting will not be created.
+4. Create a Storage Bucket for backing up Firestore data.
+    - If you don't give `firestore_backup_bucket_name`, it will not be created.
+    - If it is created, the lifecycle will be set to autoclass and deleted in 7 years.
+5. Create a bucket other than the above Storage Bucket.
+    - If only the bucket name is given, the view permission will be set to public automatically. You can also make any settings by setting `role` and `members`. If you pass an empty array to `iams`, nothing will be set.
+
+
 <!-- BEGIN_TF_DOCS -->
 Usage:
 
@@ -50,7 +78,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | n/a | `list(string)` | `[]` | no |
 | <a name="input_editors"></a> [editors](#input\_editors) | Firebase project Development member's emails. | `list(string)` | `[]` | no |
-| <a name="input_firestore_backup_bucket_name"></a> [firestore\_backup\_bucket\_name](#input\_firestore\_backup\_bucket\_name) | Backups Name of Firestore. | `string` | n/a | yes |
+| <a name="input_firestore_backup_bucket_name"></a> [firestore\_backup\_bucket\_name](#input\_firestore\_backup\_bucket\_name) | Backups Name of Firestore. | `string` | `""` | no |
 | <a name="input_hosting_names"></a> [hosting\_names](#input\_hosting\_names) | Firebase project Hosting names. | `list(string)` | `[]` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | GCP organizationId. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Firebase project id | `string` | n/a | yes |

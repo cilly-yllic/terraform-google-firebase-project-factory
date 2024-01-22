@@ -12,6 +12,7 @@ variable "editors" {
 variable "firestore_backup_bucket_name" {
   description = "Backups Name of Firestore."
   type        = string
+  default     = ""
 }
 
 variable "hosting_names" {
