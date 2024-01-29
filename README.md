@@ -24,6 +24,8 @@
 4. Create a Storage Bucket for backing up Firestore data.
     - If you don't give `firestore_backup_bucket_name`, it will not be created.
     - If it is created, the lifecycle will be set to autoclass and deleted in 7 years.
+    - also add iam `roles/datastore.importExportAdmin` to `PROJECT_ID@appspot.gserviceaccount.com`
+    - ref: [Create a Cloud Function and a Cloud Scheduler job](https://firebase.google.com/docs/firestore/solutions/schedule-export?hl=ja#configure_access_permissions)
 5. Create a bucket other than the above Storage Bucket.
     - If only the bucket name is given, the view permission will be set to public automatically. You can also make any settings by setting `role` and `members`. If you pass an empty array to `iams`, nothing will be set.
 
