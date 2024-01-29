@@ -11,6 +11,7 @@
 
 | Name | Version |
 |------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | ~> 5.12.0 |
 | <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | ~> 5.12.0 |
 
 ## Modules
@@ -23,6 +24,8 @@ No modules.
 |------|------|
 | [google-beta_google_firebase_storage_bucket.this](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_firebase_storage_bucket) | resource |
 | [google-beta_google_storage_bucket.this](https://registry.terraform.io/providers/hashicorp/google-beta/latest/docs/resources/google_storage_bucket) | resource |
+| [google_project_iam_member.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
+| [google_storage_bucket_iam_member.this](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_iam_member) | resource |
 
 ## Inputs
 
@@ -42,4 +45,8 @@ No modules.
 | <a name="output_lifecycle_rule_action"></a> [lifecycle\_rule\_action](#output\_lifecycle\_rule\_action) | Firebase Backup Firestore Storage Bucket Lifecycle Rule Action. |
 | <a name="output_lifecycle_rule_condition"></a> [lifecycle\_rule\_condition](#output\_lifecycle\_rule\_condition) | Firebase Backup Firestore Storage Bucket Lifecycle Rule Condition. |
 | <a name="output_location"></a> [location](#output\_location) | Firebase Backup Firestore Storage Bucket Location. |
+| <a name="output_project_iam_member"></a> [project\_iam\_member](#output\_project\_iam\_member) | Service Account That Is Granted The Permission To Back Up Firestore Data To Storage |
+| <a name="output_project_iam_member_role"></a> [project\_iam\_member\_role](#output\_project\_iam\_member\_role) | Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage |
+| <a name="output_storage_bucket_iam_member"></a> [storage\_bucket\_iam\_member](#output\_storage\_bucket\_iam\_member) | Service Account That Is Granted The Permission To Back Up Firestore Data To Storage |
+| <a name="output_storage_bucket_iam_member_role"></a> [storage\_bucket\_iam\_member\_role](#output\_storage\_bucket\_iam\_member\_role) | Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage |
 <!-- END_TF_DOCS -->
