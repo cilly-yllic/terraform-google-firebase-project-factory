@@ -93,6 +93,26 @@ output "firestore_backup_bucket_id" {
   value       = [for value in module.google_firebase_storage_firestore_backup_bucket : value.bucket_id]
 }
 
+output "firestore_backup_bucket_project_iam_member" {
+  description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = [for value in module.google_firebase_storage_firestore_backup_bucket : value.project_iam_member]
+}
+
+output "firestore_backup_bucket_project_iam_member_role" {
+  description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = [for value in module.google_firebase_storage_firestore_backup_bucket : value.project_iam_member_role]
+}
+
+output "firestore_backup_bucket_storage_bucket_iam_member" {
+  description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = [for value in module.google_firebase_storage_firestore_backup_bucket : value.storage_bucket_iam_member]
+}
+
+output "firestore_backup_bucket_storage_bucket_iam_member_role" {
+  description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = [for value in module.google_firebase_storage_firestore_backup_bucket : value.storage_bucket_iam_member_role]
+}
+
 output "custom_bucket_name" {
   description = "Firebase Backup Firestore Storage Bucket Name."
   value       = [for value in module.google_firebase_storage_custom_bucket : value.bucket_name]

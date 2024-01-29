@@ -27,3 +27,23 @@ output "bucket_id" {
   description = "Firebase Backup Firestore Storage Bucket."
   value       = google_firebase_storage_bucket.this.bucket_id
 }
+
+output "project_iam_member" {
+  description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = google_project_iam_member.this.member
+}
+
+output "project_iam_member_role" {
+  description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = google_project_iam_member.this.role
+}
+
+output "storage_bucket_iam_member" {
+  description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = google_storage_bucket_iam_member.this.member
+}
+
+output "storage_bucket_iam_member_role" {
+  description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
+  value       = google_storage_bucket_iam_member.this.role
+}
