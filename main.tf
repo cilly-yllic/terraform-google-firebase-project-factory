@@ -6,7 +6,7 @@
  *   source                       = "cilly-yllic/firebase-project-factory/google"
  *   api_services                 = ["cloudtasks.googleapis.com"]
  *   editors                      = ["example@example.com"]
- *   firestore_backup_bucket_name = [{
+ *   firestore_backup_buckets     = [{
  *     bucket_name                = "firestore-backups"
  *     export_platform            = {
  *       cloud_functions          = false
