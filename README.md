@@ -22,9 +22,9 @@
 3. Add a web app and create a Hosting site.
     - If you pass an empty array to `hosting_names`, hosting will not be created.
 4. Create a Storage Bucket for backing up Firestore data.
-    - If you don't give `firestore_backup_bucket_name`, it will not be created.
+    - If you don't give `firestore_backup_buckets`, it will not be created.
     - If it is created, the lifecycle will be set to autoclass and deleted in 7 years.
-    - also add iam `roles/datastore.importExportAdmin` to `PROJECT_ID@appspot.gserviceaccount.com`
+    - also if you give `export_platform.cloud_functions` or `export_platform.cloud_run` add iam `roles/datastore.importExportAdmin` to `PROJECT_ID@appspot.gserviceaccount.com` or `PROJECT_NUMBER@-compute@developer.gserviceaccount.com`
     - ref: [Create a Cloud Function and a Cloud Scheduler job](https://firebase.google.com/docs/firestore/solutions/schedule-export?hl=ja#configure_access_permissions)
 5. Create a bucket other than the above Storage Bucket.
     - If only the bucket name is given, the view permission will be set to public automatically. You can also make any settings by setting `role` and `members`. If you pass an empty array to `iams`, nothing will be set.
@@ -38,7 +38,13 @@ module "firebase" {
   source                       = "cilly-yllic/firebase-project-factory/google"
   api_services                 = ["cloudtasks.googleapis.com"]
   editors                      = ["example@example.com"]
-  firestore_backup_bucket_name = "firestore-backups"
+  firestore_backup_bucket_name = [{
+    bucket_name                = "firestore-backups"
+    export_platform            = {
+      cloud_functions          = false
+      cloud_run                = true
+    }
+  }]
   hosting_names                = ["{hosting-name}"]
   organization_id              = "xxxxxx-xxxxxx-xxxxxx"
   project_id                   = "{project-id}"
@@ -80,7 +86,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | n/a | `list(string)` | `[]` | no |
 | <a name="input_editors"></a> [editors](#input\_editors) | Firebase project Development member's emails. | `list(string)` | `[]` | no |
-| <a name="input_firestore_backup_bucket_name"></a> [firestore\_backup\_bucket\_name](#input\_firestore\_backup\_bucket\_name) | Backups Name of Firestore. | `string` | `""` | no |
+| <a name="input_firestore_backup_buckets"></a> [firestore\_backup\_buckets](#input\_firestore\_backup\_buckets) | Backups of Firestore. | <pre>list(object({<br>    bucket_name : string<br>    export_platform : optional(object({<br>      cloud_functions : bool // v1<br>      cloud_run : bool       // v2<br>      }), {<br>      cloud_functions = false<br>      cloud_run       = false<br>    })<br>  }))</pre> | `[]` | no |
 | <a name="input_hosting_names"></a> [hosting\_names](#input\_hosting\_names) | Firebase project Hosting names. | `list(string)` | `[]` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | GCP organizationId. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Firebase project id | `string` | n/a | yes |

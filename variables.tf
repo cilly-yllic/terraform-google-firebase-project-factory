@@ -9,10 +9,20 @@ variable "editors" {
   default     = []
 }
 
-variable "firestore_backup_bucket_name" {
-  description = "Backups Name of Firestore."
-  type        = string
-  default     = ""
+variable "firestore_backup_buckets" {
+  description = "Backups of Firestore."
+  type = list(object({
+    bucket_name : string
+    export_platform : optional(object({
+      cloud_functions : bool // v1
+      cloud_run : bool       // v2
+      }), {
+      cloud_functions = false
+      cloud_run       = false
+    })
+  }))
+  default  = []
+  nullable = false
 }
 
 variable "hosting_names" {
