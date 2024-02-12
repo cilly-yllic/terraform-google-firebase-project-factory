@@ -12,10 +12,10 @@ variable "editors" {
 variable "firestore_backup_buckets" {
   description = "Backups of Firestore."
   type = list(object({
-    bucket_name : string
-    export_platform : optional(object({
-      cloud_functions : bool // v1
-      cloud_run : bool       // v2
+    bucket_name = string
+    export_platform = optional(object({
+      cloud_functions = optional(bool, false) // v1
+      cloud_run       = optional(bool, false) // v2
       }), {
       cloud_functions = false
       cloud_run       = false

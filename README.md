@@ -38,7 +38,7 @@ module "firebase" {
   source                       = "cilly-yllic/firebase-project-factory/google"
   api_services                 = ["cloudtasks.googleapis.com"]
   editors                      = ["example@example.com"]
-  firestore_backup_bucket_name = [{
+  firestore_backup_buckets     = [{
     bucket_name                = "firestore-backups"
     export_platform            = {
       cloud_functions          = false
@@ -86,7 +86,7 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | n/a | `list(string)` | `[]` | no |
 | <a name="input_editors"></a> [editors](#input\_editors) | Firebase project Development member's emails. | `list(string)` | `[]` | no |
-| <a name="input_firestore_backup_buckets"></a> [firestore\_backup\_buckets](#input\_firestore\_backup\_buckets) | Backups of Firestore. | <pre>list(object({<br>    bucket_name : string<br>    export_platform : optional(object({<br>      cloud_functions : bool // v1<br>      cloud_run : bool       // v2<br>      }), {<br>      cloud_functions = false<br>      cloud_run       = false<br>    })<br>  }))</pre> | `[]` | no |
+| <a name="input_firestore_backup_buckets"></a> [firestore\_backup\_buckets](#input\_firestore\_backup\_buckets) | Backups of Firestore. | <pre>list(object({<br>    bucket_name = string<br>    export_platform = optional(object({<br>      cloud_functions = optional(bool, false) // v1<br>      cloud_run       = optional(bool, false) // v2<br>      }), {<br>      cloud_functions = false<br>      cloud_run       = false<br>    })<br>  }))</pre> | `[]` | no |
 | <a name="input_hosting_names"></a> [hosting\_names](#input\_hosting\_names) | Firebase project Hosting names. | `list(string)` | `[]` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | GCP organizationId. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Firebase project id | `string` | n/a | yes |
