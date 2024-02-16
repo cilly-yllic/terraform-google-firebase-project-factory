@@ -1,11 +1,14 @@
 locals {
-  api_services                 = ["cloudtasks.googleapis.com"]
-  organization_id              = "xxxxxx-xxxxxx-xxxxxx"
-  project_id                   = "{project-id}"
-  region                       = "asia-northeast1"
-  editors                      = ["example@example.com"]
-  hosting_names                = ["{hosting-name}"]
-  firestore_backup_bucket_name = "firestore-buckups"
+  api_services    = ["cloudtasks.googleapis.com"]
+  organization_id = "xxxxxx-xxxxxx-xxxxxx"
+  project_id      = "{project-id}"
+  region          = "asia-northeast1"
+  editors         = ["example@example.com"]
+  hosting_names   = ["{hosting-name}"]
+  firestore_backup_buckets = [{
+    bucket_name     = "firestore-backups"
+    export_platform = "cloud_run"
+  }]
   storage_buckets = [
     { bucket_name = "user-icons" },
   ]
@@ -26,12 +29,12 @@ provider "google" {
 module "firebase" {
   source = "../../"
 
-  api_services                 = local.api_services
-  organization_id              = local.organization_id
-  project_id                   = local.project_id
-  editors                      = local.editors
-  hosting_names                = local.hosting_names
-  region                       = local.region
-  firestore_backup_bucket_name = local.firestore_backup_bucket_name
-  storage_buckets              = local.storage_buckets
+  api_services             = local.api_services
+  organization_id          = local.organization_id
+  project_id               = local.project_id
+  editors                  = local.editors
+  hosting_names            = local.hosting_names
+  region                   = local.region
+  firestore_backup_buckets = local.firestore_backup_buckets
+  storage_buckets          = local.storage_buckets
 }

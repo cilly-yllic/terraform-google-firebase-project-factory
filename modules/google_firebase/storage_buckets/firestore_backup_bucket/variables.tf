@@ -9,8 +9,9 @@ variable "bucket_name" {
 }
 
 variable "export_platform" {
-  type = object({
-    cloud_functions : bool // v1
-    cloud_run : bool       // v2
-  })
+  type = string
+  validation {
+    condition     = contains(["cloud_functions", "cloud_run"], var.export_platform)
+    error_message = "Invalid platform name, export_platform can be cloud_functions or cloud_run."
+  }
 }

@@ -30,20 +30,20 @@ output "bucket_id" {
 
 output "project_iam_member" {
   description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
-  value       = [for value in google_project_iam_member.this : value.member]
+  value       = google_project_iam_member.this.member
 }
 
 output "project_iam_member_role" {
   description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
-  value       = [for value in google_project_iam_member.this : value.role]
+  value       = google_project_iam_member.this.role
 }
 
 output "storage_bucket_iam_member" {
   description = "Service Account That Is Granted The Permission To Back Up Firestore Data To Storage"
-  value       = [for value in google_storage_bucket_iam_member.this : value.member]
+  value       = google_storage_bucket_iam_member.this.member
 }
 
 output "storage_bucket_iam_member_role" {
   description = "Service Account Role That Is Granted The Permission To Back Up Firestore Data To Storage"
-  value       = [for value in google_storage_bucket_iam_member.this : value.role]
+  value       = google_storage_bucket_iam_member.this.role
 }

@@ -33,7 +33,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | n/a | `string` | n/a | yes |
-| <a name="input_export_platform"></a> [export\_platform](#input\_export\_platform) | n/a | <pre>object({<br>    cloud_functions : bool // v1<br>    cloud_run : bool       // v2<br>  })</pre> | n/a | yes |
+| <a name="input_export_platform"></a> [export\_platform](#input\_export\_platform) | n/a | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 

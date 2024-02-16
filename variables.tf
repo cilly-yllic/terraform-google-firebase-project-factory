@@ -12,16 +12,17 @@ variable "editors" {
 variable "firestore_backup_buckets" {
   description = "Backups of Firestore."
   type = list(object({
-    bucket_name = string
-    export_platform = optional(object({
-      cloud_functions = optional(bool, false) // v1
-      cloud_run       = optional(bool, false) // v2
-      }), {
-      cloud_functions = false
-      cloud_run       = false
-    })
+    bucket_name     = string
+    export_platform = optional(string, "cloud_functions")
   }))
-  default  = []
+  default = []
+  validation {
+    condition = length([
+      for o in var.firestore_backup_buckets : true
+      if contains(["cloud_functions", "cloud_run"], o.export_platform)
+    ]) == length(var.firestore_backup_buckets)
+    error_message = "Invalid platform name, firestore_backup_buckets.*.export_platform can be cloud_functions or cloud_run."
+  }
   nullable = false
 }
 
