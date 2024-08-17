@@ -36,6 +36,7 @@ variable "service_accounts" {
         for k in ["hosting", "functions", "firestore", "storage", "scheduler", "additional_rules"] : can(o.args[k])
       ])
     ]) == length(var.service_accounts)
+    error_message = "Invalid valid service account. type must be deploy, And also args has these keys hosting, functions, firestore, storage, scheduler, and additional_rules"
   }
 }
 
