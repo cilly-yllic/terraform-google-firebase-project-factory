@@ -37,7 +37,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_service_account_ids"></a> [service\_account\_ids](#output\_service\_account\_ids) | Service Account Ids to configure service account |
-| <a name="output_service_account_names"></a> [service\_account\_names](#output\_service\_account\_names) | Service Account names |
+| <a name="output_service_account_id"></a> [service\_account\_id](#output\_service\_account\_id) | Service Account Ids to configure service account |
+| <a name="output_service_account_name"></a> [service\_account\_name](#output\_service\_account\_name) | Service Account names |
 | <a name="output_service_account_roles"></a> [service\_account\_roles](#output\_service\_account\_roles) | Service Account Roles created |
 <!-- END_TF_DOCS -->

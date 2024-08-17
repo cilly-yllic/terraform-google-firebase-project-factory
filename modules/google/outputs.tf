@@ -10,12 +10,12 @@ output "user_roles" {
 
 output "service_account_ids" {
   description = "Service Account Ids to configure service account"
-  value       = [for value in module.google_project_iam_member_service_account : value.service_account_ids]
+  value       = [for value in module.google_project_iam_member_service_account : value.service_account_id]
 }
 
 output "service_account_names" {
   description = "Service Account names"
-  value       = [for value in module.google_project_iam_member_service_account : value.service_account_names]
+  value       = [for value in module.google_project_iam_member_service_account : value.service_account_name]
 }
 
 output "service_account_roles" {
