@@ -25,6 +25,9 @@ resource "google_storage_bucket" "this" {
       age = 7 * 365
     }
   }
+  soft_delete_policy {
+    retention_duration_seconds = var.soft_delete_policy.retention_duration_seconds
+  }
 }
 
 resource "google_firebase_storage_bucket" "this" {

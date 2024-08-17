@@ -3,16 +3,16 @@
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.7.0 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.12.0 |
-| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | ~> 5.12.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.41.0 |
+| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | ~> 5.41.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | ~> 5.12.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | ~> 5.12.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | ~> 5.41.0 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | ~> 5.41.0 |
 
 ## Modules
 
@@ -34,6 +34,7 @@ No modules.
 | <a name="input_iams"></a> [iams](#input\_iams) | n/a | <pre>list(object({<br>    role    = string<br>    members = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
+| <a name="input_soft_delete_policy"></a> [soft\_delete\_policy](#input\_soft\_delete\_policy) | n/a | <pre>object({<br>    retention_duration_seconds = number<br>  })</pre> | <pre>{<br>  "retention_duration_seconds": 0<br>}</pre> | no |
 | <a name="input_storage_class"></a> [storage\_class](#input\_storage\_class) | n/a | `string` | n/a | yes |
 
 ## Outputs
@@ -45,4 +46,5 @@ No modules.
 | <a name="output_location"></a> [location](#output\_location) | Firebase Backup Firestore Storage Bucket Location. |
 | <a name="output_members"></a> [members](#output\_members) | Firebase Backup Firestore Storage Bucket Members. |
 | <a name="output_roles"></a> [roles](#output\_roles) | Firebase Backup Firestore Storage Bucket Role. |
+| <a name="output_soft_delete_policy"></a> [soft\_delete\_policy](#output\_soft\_delete\_policy) | Firebase Backup Firestore Storage Bucket Soft Delete. |
 <!-- END_TF_DOCS -->

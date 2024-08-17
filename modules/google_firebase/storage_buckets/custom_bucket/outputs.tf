@@ -8,6 +8,11 @@ output "location" {
   value       = google_storage_bucket.this.location
 }
 
+output "soft_delete_policy" {
+  description = "Firebase Backup Firestore Storage Bucket Soft Delete."
+  value       = google_storage_bucket.this.soft_delete_policy
+}
+
 output "bucket_id" {
   description = "Firebase Backup Firestore Storage Bucket Id."
   value       = google_firebase_storage_bucket.this.bucket_id

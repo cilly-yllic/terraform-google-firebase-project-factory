@@ -3,16 +3,49 @@ variable "api_services" {
   default = []
 }
 
-variable "editors" {
+variable "users" {
   description = "Firebase project Development member's emails."
-  type        = list(string)
-  default     = []
+  type = list(object({
+    role   = optional(string, "viewer") # viewer | editor | owner
+    email  = string
+    deploy = optional(bool, false)
+  }))
+  default = []
+  validation {
+    condition = length([
+      for o in var.users : true
+      if contains(["viewer", "editor", "owner"], o.role)
+    ]) == length(var.users)
+    error_message = "Invalid role name, members.*.role can be viewer, editor or owner."
+  }
+}
+
+variable "service_accounts" {
+  description = "Firebase project Service Accounts list."
+  type = list(object({
+    account_id   = string
+    display_name = optional(string)
+    type         = string # deploy
+    args         = optional(any, {})
+  }))
+  default = []
+  validation {
+    condition = length([
+      for o in var.service_accounts : true
+      if o.type == "deploy" && alltrue([
+        for k in ["hosting", "functions", "firestore", "storage", "scheduler", "additional_rules"] : can(o.args[k])
+      ])
+    ]) == length(var.service_accounts)
+  }
 }
 
 variable "firestore_backup_buckets" {
   description = "Backups of Firestore."
   type = list(object({
-    bucket_name     = string
+    bucket_name = string
+    soft_delete_policy = optional(object({
+      retention_duration_seconds = number
+    }), { retention_duration_seconds : 0 })
     export_platform = optional(string, "cloud_functions")
   }))
   default = []
@@ -53,6 +86,9 @@ variable "storage_buckets" {
   type = list(object({
     bucket_name   = string // this to be -> {project-id}-{bucket_name}
     storage_class = optional(string, "REGIONAL")
+    soft_delete_policy = optional(object({
+      retention_duration_seconds = number
+    }), { retention_duration_seconds : 0 })
     iams = optional(list(object({
       role    = string
       members = list(string)

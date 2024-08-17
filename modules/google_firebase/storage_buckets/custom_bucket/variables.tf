@@ -10,6 +10,12 @@ variable "bucket_name" {
 variable "storage_class" {
   type = string
 }
+variable "soft_delete_policy" {
+  type = object({
+    retention_duration_seconds = number
+  })
+  default = { retention_duration_seconds : 0 }
+}
 variable "iams" {
   type = list(object({
     role    = string

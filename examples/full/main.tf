@@ -1,12 +1,32 @@
 locals {
-  api_services    = ["cloudtasks.googleapis.com"]
   organization_id = "xxxxxx-xxxxxx-xxxxxx"
   project_id      = "{project-id}"
   region          = "asia-northeast1"
-  editors         = ["example@example.com"]
-  hosting_names   = ["{hosting-name}"]
+  api_services    = ["cloudtasks.googleapis.com"]
+  users = [{
+    role   = "editor"
+    email  = "example@example.com"
+    deploy = true
+  }]
+  service_accounts = [{
+    account_id   = "ci-deploy"
+    display_name = "Continuous Integration Deployment Service Account"
+    type         = "deploy"
+    args = {
+      hosting          = true
+      functions        = true
+      firestore        = true
+      storage          = true
+      scheduler        = false
+      additional_rules = []
+    }
+  }]
+  hosting_names = ["{hosting-name}"]
   firestore_backup_buckets = [{
-    bucket_name     = "firestore-backups"
+    bucket_name = "firestore-backups"
+    soft_delete_policy = {
+      retention_duration_seconds = 604800
+    }
     export_platform = "cloud_run"
   }]
   storage_buckets = [
@@ -32,7 +52,8 @@ module "firebase" {
   api_services             = local.api_services
   organization_id          = local.organization_id
   project_id               = local.project_id
-  editors                  = local.editors
+  users                    = local.users
+  service_accounts         = local.service_accounts
   hosting_names            = local.hosting_names
   region                   = local.region
   firestore_backup_buckets = local.firestore_backup_buckets

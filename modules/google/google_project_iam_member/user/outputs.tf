@@ -1,9 +1,9 @@
-output "members" {
+output "user_members" {
   value       = [for value in google_project_iam_member.this : value.member]
-  description = "Firebase Editor Member Members"
+  description = "Firebase Editor User Members"
 }
 
-output "roles" {
+output "user_roles" {
   value       = [for value in google_project_iam_member.this : value.role]
-  description = "Firebase Editor Member Roles"
+  description = "Firebase Editor User Roles"
 }

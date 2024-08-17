@@ -3,6 +3,9 @@ resource "google_storage_bucket" "this" {
   location      = var.region
   provider      = google-beta
   storage_class = var.storage_class
+  soft_delete_policy {
+    retention_duration_seconds = var.soft_delete_policy.retention_duration_seconds
+  }
 }
 
 resource "google_firebase_storage_bucket" "this" {

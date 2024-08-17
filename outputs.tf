@@ -38,14 +38,29 @@ output "default_bucket_release_ruleset_name" {
   value       = module.google_firebase_defaults.default_bucket_release_ruleset_name
 }
 
-output "members" {
-  description = "Firebase Editor Member Members"
-  value       = module.google.*.members
+output "user_members" {
+  description = "Firebase Editor User Members"
+  value       = module.google.*.user_members
 }
 
-output "roles" {
-  description = "Firebase Editor Member Roles"
-  value       = module.google.*.roles
+output "user_roles" {
+  description = "Firebase Editor User Roles"
+  value       = module.google.*.user_roles
+}
+
+output "service_account_ids" {
+  description = "Service Account Ids to configure service account"
+  value       = module.google.*.service_account_ids
+}
+
+output "service_account_names" {
+  description = "Service Account names"
+  value       = module.google.*.service_account_names
+}
+
+output "service_account_roles" {
+  description = "Service Account Roles created"
+  value       = module.google.*.service_account_roles
 }
 
 output "display_name" {

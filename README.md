@@ -35,21 +35,41 @@ Usage:
 
 ```tf
 module "firebase" {
-  source                       = "cilly-yllic/firebase-project-factory/google"
-  api_services                 = ["cloudtasks.googleapis.com"]
-  editors                      = ["example@example.com"]
-  firestore_backup_buckets     = [{
-    bucket_name                = "firestore-backups"
-    export_platform            = {
-      cloud_functions          = false
-      cloud_run                = true
+  source          = "cilly-yllic/firebase-project-factory/google"
+  version         = "{version}"
+  organization_id = "xxxxxx-xxxxxx-xxxxxx"
+  project_id      = "{project-id}"
+  region          = "asia-northeast1"
+  api_services    = ["cloudtasks.googleapis.com"]
+  users = [{
+    role   = "editor"
+    email  = "example@example.com"
+    deploy = true
+  }]
+  service_accounts = [{
+    account_id   = "ci-deploy"
+    display_name = "Continuous Integration Deployment Service Account"
+    type         = "deploy"
+    args = {
+      hosting          = true
+      functions        = true
+      firestore        = true
+      storage          = true
+      scheduler        = false
+      additional_rules = []
     }
   }]
-  hosting_names                = ["{hosting-name}"]
-  organization_id              = "xxxxxx-xxxxxx-xxxxxx"
-  project_id                   = "{project-id}"
-  region                       = "asia-northeast1"
-  storage_buckets              = []
+  hosting_names = ["{hosting-name}"]
+  firestore_backup_buckets = [{
+    bucket_name = "firestore-backups"
+    soft_delete_policy = {
+      retention_duration_seconds = 604800
+    }
+    export_platform = "cloud_run"
+  }]
+  storage_buckets = [
+    { bucket_name = "user-icons" },
+  ]
 }
 ```
 
@@ -57,9 +77,9 @@ module "firebase" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.7.0 |
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.12.0 |
-| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | ~> 5.12.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9.0 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.41.0 |
+| <a name="requirement_google-beta"></a> [google-beta](#requirement\_google-beta) | ~> 5.41.0 |
 
 ## Providers
 
@@ -85,13 +105,14 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_services"></a> [api\_services](#input\_api\_services) | n/a | `list(string)` | `[]` | no |
-| <a name="input_editors"></a> [editors](#input\_editors) | Firebase project Development member's emails. | `list(string)` | `[]` | no |
 | <a name="input_firestore_backup_buckets"></a> [firestore\_backup\_buckets](#input\_firestore\_backup\_buckets) | Backups of Firestore. | <pre>list(object({<br>    bucket_name     = string<br>    export_platform = optional(string, "cloud_functions")<br>  }))</pre> | `[]` | no |
 | <a name="input_hosting_names"></a> [hosting\_names](#input\_hosting\_names) | Firebase project Hosting names. | `list(string)` | `[]` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | GCP organizationId. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Firebase project id | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Firebase project region. | `string` | `"asia-northeast1"` | no |
-| <a name="input_storage_buckets"></a> [storage\_buckets](#input\_storage\_buckets) | Firebase project Hosting names. | <pre>list(object({<br>    bucket_name   = string // this to be -> {project-id}-{bucket_name}<br>    storage_class = optional(string, "REGIONAL")<br>    iams = optional(list(object({<br>      role    = string<br>      members = list(string)<br>      })), [{<br>      role    = "roles/storage.legacyObjectReader"<br>      members = ["allUsers"]<br>    }])<br>  }))</pre> | `[]` | no |
+| <a name="input_service_accounts"></a> [service\_accounts](#input\_service\_accounts) | Firebase project Service Accounts list. | <pre>list(object({<br>    account_id   = string<br>    display_name = optional(string)<br>    type         = string # deploy<br>    args         = optional(any, {})<br>  }))</pre> | `[]` | no |
+| <a name="input_storage_buckets"></a> [storage\_buckets](#input\_storage\_buckets) | Firebase project Hosting names. | <pre>list(object({<br>    bucket_name   = string // this to be -> {project-id}-{bucket_name}<br>    storage_class = optional(string, "REGIONAL")<br>    soft_delete_policy = optional(object({<br>      retention_duration_seconds = number<br>    }), { retention_duration_seconds : 0 })<br>    iams = optional(list(object({<br>      role    = string<br>      members = list(string)<br>      })), [{<br>      role    = "roles/storage.legacyObjectReader"<br>      members = ["allUsers"]<br>    }])<br>  }))</pre> | `[]` | no |
+| <a name="input_users"></a> [users](#input\_users) | Firebase project Development member's emails. | <pre>list(object({<br>    role   = optional(string, "viewer") # viewer | editor | owner<br>    email  = string<br>    deploy = optional(bool, false)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
@@ -121,8 +142,11 @@ No resources.
 | <a name="output_gae_database_type"></a> [gae\_database\_type](#output\_gae\_database\_type) | GAE Database (firestore). |
 | <a name="output_gae_location_id"></a> [gae\_location\_id](#output\_gae\_location\_id) | GAE Location. |
 | <a name="output_google_project_service_api"></a> [google\_project\_service\_api](#output\_google\_project\_service\_api) | GCP API Enables. |
-| <a name="output_members"></a> [members](#output\_members) | Firebase Editor Member Members |
 | <a name="output_project_id"></a> [project\_id](#output\_project\_id) | Firebase Project Id. |
-| <a name="output_roles"></a> [roles](#output\_roles) | Firebase Editor Member Roles |
+| <a name="output_service_account_ids"></a> [service\_account\_ids](#output\_service\_account\_ids) | Service Account Ids to configure service account |
+| <a name="output_service_account_names"></a> [service\_account\_names](#output\_service\_account\_names) | Service Account names |
+| <a name="output_service_account_roles"></a> [service\_account\_roles](#output\_service\_account\_roles) | Service Account Roles created |
 | <a name="output_site_id"></a> [site\_id](#output\_site\_id) | Firebase Hosting Site ID. |
+| <a name="output_user_members"></a> [user\_members](#output\_user\_members) | Firebase Editor User Members |
+| <a name="output_user_roles"></a> [user\_roles](#output\_user\_roles) | Firebase Editor User Roles |
 <!-- END_TF_DOCS -->
