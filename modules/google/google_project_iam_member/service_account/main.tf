@@ -14,7 +14,7 @@ locals {
 resource "google_service_account" "this" {
   project      = var.project
   account_id   = var.account_id
-  display_name = var.display_name ? var.display_name : var.account_id
+  display_name = can(var.display_name) ? var.display_name : var.account_id
 }
 
 resource "google_project_iam_member" "this" {
