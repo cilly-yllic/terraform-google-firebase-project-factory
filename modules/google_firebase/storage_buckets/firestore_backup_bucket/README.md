@@ -36,6 +36,7 @@ No modules.
 | <a name="input_export_platform"></a> [export\_platform](#input\_export\_platform) | n/a | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
+| <a name="input_soft_delete_policy"></a> [soft\_delete\_policy](#input\_soft\_delete\_policy) | n/a | <pre>object({<br>    retention_duration_seconds = number<br>  })</pre> | <pre>{<br>  "retention_duration_seconds": 0<br>}</pre> | no |
 
 ## Outputs
 

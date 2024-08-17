@@ -14,7 +14,7 @@ variable "users" {
 variable "service_accounts" {
   type = list(object({
     account_id   = string
-    display_name = optional(string, var.service_accounts.account_id)
+    display_name = optional(string)
     type         = string # deploy
     args         = optional(any, {})
   }))
