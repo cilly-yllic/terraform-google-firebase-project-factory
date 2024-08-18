@@ -1,9 +1,9 @@
 locals {
   roles = var.type == "deploy" ? concat([
-    "roles/runtimeconfig.admin", "roles/artifactregistry.admin"
+    "roles/runtimeconfig.admin"
     ],
     var.args.hosting ? ["roles/firebasehosting.admin"] : [],
-    var.args.functions ? ["roles/cloudfunctions.admin", "roles/iam.serviceAccountUser"] : [],
+    var.args.functions ? ["roles/cloudfunctions.admin", "roles/iam.serviceAccountUser", "roles/artifactregistry.reader"] : [],
     var.args.scheduler ? ["roles/cloudscheduler.admin"] : [],
     var.args.firestore ? ["roles/datastore.indexAdmin", "roles/firebaserules.admin"] : [],
     var.args.storage ? ["roles/firebasestorage.viewer", "roles/storage.objectAdmin", "roles/storage.admin"] : [],
