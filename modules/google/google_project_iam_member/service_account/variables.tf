@@ -14,6 +14,12 @@ variable "type" {
   type = string
 }
 
+variable "rules" {
+  type        = list(string)
+  default     = []
+  description = "additional rules"
+}
+
 variable "args" {
   type    = any
   default = {}

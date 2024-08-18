@@ -16,6 +16,7 @@ variable "service_accounts" {
     account_id   = string
     display_name = optional(string)
     type         = string # deploy
+    rules        = optional(list(string), [])
     args         = optional(any, {})
   }))
   default = []

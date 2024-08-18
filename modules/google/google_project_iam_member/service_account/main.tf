@@ -7,7 +7,7 @@ locals {
     var.args.scheduler ? ["roles/cloudscheduler.admin"] : [],
     var.args.firestore ? ["roles/datastore.indexAdmin", "roles/firebaserules.admin"] : [],
     var.args.storage ? ["roles/firebasestorage.viewer", "roles/storage.objectAdmin", "roles/storage.admin"] : [],
-    var.args.additional_rules,
+    var.rules,
   ) : []
 }
 

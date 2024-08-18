@@ -14,5 +14,6 @@ module "google_project_iam_member_service_account" {
   account_id   = each.value.account_id
   display_name = can(each.value.display_name) ? each.value.display_name : each.value.account_id
   type         = each.value.type
+  rules        = each.value.rules
   args         = each.value.args
 }
