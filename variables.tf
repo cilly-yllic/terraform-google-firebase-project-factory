@@ -1,3 +1,5 @@
+# if service_accounts is not empty put iam.googleapis.com
+# if deploy cloudtasks put cloudtasks.googleapis.com
 variable "api_services" {
   type    = list(string)
   default = []
@@ -34,10 +36,10 @@ variable "service_accounts" {
     condition = length([
       for o in var.service_accounts : true
       if o.type == "deploy" && alltrue([
-        for k in ["hosting", "functions", "firestore", "storage", "scheduler", "tasks"] : can(o.args[k])
+        for k in ["hosting", "functions", "firestore", "storage", "scheduler", "tasks", "blocking"] : can(o.args[k])
       ])
     ]) == length(var.service_accounts)
-    error_message = "Invalid valid service account. type must be deploy, And also args has these keys hosting, functions, firestore, storage, and scheduler"
+    error_message = "Invalid valid service account. type must be deploy, And also args has these keys hosting, functions, firestore, storage, scheduler, tasks, and blocking"
   }
 }
 
