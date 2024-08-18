@@ -12,13 +12,14 @@ locals {
     account_id   = "ci-deploy"
     display_name = "Continuous Integration Deployment Service Account"
     type         = "deploy"
+    roles        = []
     args = {
-      hosting          = true
-      functions        = true
-      firestore        = true
-      storage          = true
-      scheduler        = false
-      additional_rules = []
+      hosting   = true
+      functions = true
+      firestore = true
+      storage   = true
+      scheduler = false
+      tasks     = false
     }
   }]
   hosting_names = ["{hosting-name}"]

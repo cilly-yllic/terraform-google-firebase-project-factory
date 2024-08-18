@@ -31,7 +31,7 @@ No modules.
 | <a name="input_args"></a> [args](#input\_args) | n/a | `any` | `{}` | no |
 | <a name="input_display_name"></a> [display\_name](#input\_display\_name) | n/a | `string` | n/a | yes |
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
-| <a name="input_rules"></a> [rules](#input\_rules) | additional rules | `list(string)` | `[]` | no |
+| <a name="input_roles"></a> [roles](#input\_roles) | additional roles | `list(string)` | `[]` | no |
 | <a name="input_type"></a> [type](#input\_type) | n/a | `string` | n/a | yes |
 
 ## Outputs

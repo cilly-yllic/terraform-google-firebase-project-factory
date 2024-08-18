@@ -26,7 +26,7 @@ variable "service_accounts" {
     account_id   = string
     display_name = optional(string)
     type         = string # deploy
-    rules        = optional(list(string), [])
+    roles        = optional(list(string), [])
     args         = optional(any, {})
   }))
   default = []
@@ -34,7 +34,7 @@ variable "service_accounts" {
     condition = length([
       for o in var.service_accounts : true
       if o.type == "deploy" && alltrue([
-        for k in ["hosting", "functions", "firestore", "storage", "scheduler"] : can(o.args[k])
+        for k in ["hosting", "functions", "firestore", "storage", "scheduler", "tasks"] : can(o.args[k])
       ])
     ]) == length(var.service_accounts)
     error_message = "Invalid valid service account. type must be deploy, And also args has these keys hosting, functions, firestore, storage, and scheduler"

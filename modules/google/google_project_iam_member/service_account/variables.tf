@@ -14,10 +14,10 @@ variable "type" {
   type = string
 }
 
-variable "rules" {
+variable "roles" {
   type        = list(string)
   default     = []
-  description = "additional rules"
+  description = "additional roles"
 }
 
 variable "args" {

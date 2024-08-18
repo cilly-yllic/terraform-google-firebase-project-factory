@@ -26,7 +26,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_project"></a> [project](#input\_project) | n/a | `string` | n/a | yes |
-| <a name="input_service_accounts"></a> [service\_accounts](#input\_service\_accounts) | n/a | <pre>list(object({<br>    account_id   = string<br>    display_name = optional(string)<br>    type         = string # deploy<br>    rules        = optional(list(string), [])<br>    args         = optional(any, {})<br>  }))</pre> | `[]` | no |
+| <a name="input_service_accounts"></a> [service\_accounts](#input\_service\_accounts) | n/a | <pre>list(object({<br>    account_id   = string<br>    display_name = optional(string)<br>    type         = string # deploy<br>    roles        = optional(list(string), [])<br>    args         = optional(any, {})<br>  }))</pre> | `[]` | no |
 | <a name="input_users"></a> [users](#input\_users) | n/a | <pre>list(object({<br>    role   = optional(string, "viewer") # viewer | editor | owner<br>    email  = string<br>    deploy = optional(bool, false)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
