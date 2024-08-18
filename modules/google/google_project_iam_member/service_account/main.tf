@@ -1,6 +1,6 @@
 locals {
   roles = var.type == "deploy" ? concat([
-    "roles/runtimeconfig.admin"
+    "roles/runtimeconfig.admin", "roles/artifactregistry.admin"
     ],
     var.args.hosting ? ["roles/firebasehosting.admin"] : [],
     var.args.functions ? ["roles/cloudfunctions.admin", "roles/iam.serviceAccountUser"] : [],
