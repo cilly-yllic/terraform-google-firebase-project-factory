@@ -8,6 +8,8 @@
  *   organization_id = "xxxxxx-xxxxxx-xxxxxx"
  *   project_id      = "{project-id}"
  *   region          = "asia-northeast1"
+ *   # if service_accounts is not empty put iam.googleapis.com
+ *   # if deploy cloudtasks put cloudtasks.googleapis.com
  *   api_services    = ["cloudtasks.googleapis.com"]
  *   users = [{
  *     role   = "editor"
@@ -18,14 +20,15 @@
  *     account_id   = "ci-deploy"
  *     display_name = "Continuous Integration Deployment Service Account"
  *     type         = "deploy"
- *     rules        = []
+ *     roles        = []
  *     args = {
  *       hosting   = true
  *       functions = true
  *       firestore = true
  *       storage   = true
- *       scheduler = false
- *       tasks     = false
+ *       scheduler = false # deploy scheduler function
+ *       tasks     = false # deploy cloud task function
+ *       blocking  = false # deploy blocking function
  *     }
  *   }]
  *   hosting_names = ["{hosting-name}"]

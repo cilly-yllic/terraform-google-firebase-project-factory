@@ -40,6 +40,8 @@ module "firebase" {
   organization_id = "xxxxxx-xxxxxx-xxxxxx"
   project_id      = "{project-id}"
   region          = "asia-northeast1"
+  # if service_accounts is not empty put iam.googleapis.com
+  # if deploy cloudtasks put cloudtasks.googleapis.com
   api_services    = ["cloudtasks.googleapis.com"]
   users = [{
     role   = "editor"
@@ -50,7 +52,7 @@ module "firebase" {
     account_id   = "ci-deploy"
     display_name = "Continuous Integration Deployment Service Account"
     type         = "deploy"
-    rules        = []
+    roles        = []
     args = {
       hosting   = true
       functions = true
@@ -58,6 +60,7 @@ module "firebase" {
       storage   = true
       scheduler = false
       tasks     = false
+      blocking  = false
     }
   }]
   hosting_names = ["{hosting-name}"]
@@ -105,7 +108,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_api_services"></a> [api\_services](#input\_api\_services) | n/a | `list(string)` | `[]` | no |
+| <a name="input_api_services"></a> [api\_services](#input\_api\_services) | if service\_accounts is not empty put iam.googleapis.com if deploy cloudtasks put cloudtasks.googleapis.com | `list(string)` | `[]` | no |
 | <a name="input_firestore_backup_buckets"></a> [firestore\_backup\_buckets](#input\_firestore\_backup\_buckets) | Backups of Firestore. | <pre>list(object({<br>    bucket_name = string<br>    soft_delete_policy = optional(object({<br>      retention_duration_seconds = number<br>    }), { retention_duration_seconds : 0 })<br>    export_platform = optional(string, "cloud_functions")<br>  }))</pre> | `[]` | no |
 | <a name="input_hosting_names"></a> [hosting\_names](#input\_hosting\_names) | Firebase project Hosting names. | `list(string)` | `[]` | no |
 | <a name="input_organization_id"></a> [organization\_id](#input\_organization\_id) | GCP organizationId. | `string` | n/a | yes |

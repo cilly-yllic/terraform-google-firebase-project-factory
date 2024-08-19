@@ -20,6 +20,7 @@ locals {
       storage   = true
       scheduler = false
       tasks     = false
+      blocking  = false
     }
   }]
   hosting_names = ["{hosting-name}"]
